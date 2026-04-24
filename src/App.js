@@ -32,7 +32,7 @@ export default function App() {
       default: break;
     }
     return list;
-  }, [searchQuery, priceRange, sortBy, category]); // BUG FIX 2
+  }, [searchQuery, priceRange, sortBy, category]); // BUG FIX 2 : Add category to dependencies so filter update when category is selected
 
   function addToCart(product) {
     setCartItems(prev => {
@@ -44,7 +44,7 @@ export default function App() {
   }
 
   function removeFromCart(id) {
-    setCartItems(prev => prev.filter(i => i.id !== id)); // bug fix 3
+    setCartItems(prev => prev.filter(i => i.id !== id)); // bug fix 3 : change the === into !== so it removes the item which we want to delete
   }
 
   function updateQty(id, qty) {
@@ -52,8 +52,8 @@ export default function App() {
     setCartItems(prev => prev.map(i => i.id === id ? { ...i, qty } : i));
   }
 
-  const cartCount = cartItems.reduce((sum, i) => sum + i.count, 0);
-  const cartItemIds = new Set(cartItems.map(i => i.productId));
+  const cartCount = cartItems.reduce((sum, i) => sum + i.qty, 0); // BUG FIX 4: i.count change into i.qty
+  const cartItemIds = new Set(cartItems.map(i => i.id)); // BUG FIX 5: Changed i.productId to i.id so button shows "Added" when in cart
 
   return (
     <div className="app">
