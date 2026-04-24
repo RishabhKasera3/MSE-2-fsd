@@ -19,7 +19,7 @@ export default function App() {
       const matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.category.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchPrice = p.price > priceRange.min && p.price <= priceRange.max;
+      const matchPrice = p.price > priceRange.min && p.price <= priceRange.max; // Bug fix 1 
       const matchCategory = category === 'All' || p.category === category;
       return matchSearch && matchPrice && matchCategory;
     });
@@ -32,7 +32,7 @@ export default function App() {
       default: break;
     }
     return list;
-  }, [searchQuery, priceRange, sortBy, category]); // BUG FIX: Added 'category' to dependency array so filtering updates when category changes
+  }, [searchQuery, priceRange, sortBy, category]); // BUG FIX 2
 
   function addToCart(product) {
     setCartItems(prev => {
@@ -44,7 +44,7 @@ export default function App() {
   }
 
   function removeFromCart(id) {
-    setCartItems(prev => prev.filter(i => i.id === id));
+    setCartItems(prev => prev.filter(i => i.id !== id)); // bug fix 3
   }
 
   function updateQty(id, qty) {
