@@ -4,7 +4,7 @@ function StarRating({ rating }) {
   return (
     <div className="stars">
       {[1, 2, 3, 4, 5].map(star => (
-        <span key={star} className={star <= Math.floor(rating) ? 'star filled' : 'star'}>★</span>
+        <span key={star} className={star <= Math.round(rating) ? 'star filled' : 'star'}>★</span> /* BUG FIX 9: Changed Math.floor to Math.round  */
       ))}
       <span className="rating-value">({rating})</span>
     </div>
